@@ -17,12 +17,6 @@
 			[[ if(venue) { ]]
 			<div class="entry-venue">Venue: <a href="[[=venue_link]]">[[=venue_title]]</a></div>
 			[[ } ]]
-			[[ if(organizer) { ]]
-			<div class="entry-organizer">Organizer: [[=raw organizer]]</div>
-			[[ } ]]
-			[[ if(price) { ]]
-			<div class="entry-price">Price: [[=raw price]]</a></div>
-			[[ } ]]
 			<span class="tribe-events-arrow"></span>
 		</div>
 	</div>
