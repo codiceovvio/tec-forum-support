@@ -51,7 +51,7 @@ class TEC_Forum_945349 {
 			$json['organizer'] = $organizer;
 		}
 
-		if ( function_exists( 'wootickets_init' ) && false === true ){
+		if ( function_exists( 'wootickets_init' ) ){
 			$tickets = TribeWooTickets::get_instance()->get_tickets_ids( $event );
 			if ( ! empty( $tickets ) ){
 				$min = PHP_INT_MAX;
