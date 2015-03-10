@@ -52,13 +52,18 @@ class TEC_Forum_945349 {
 		}
 
 		if ( function_exists( 'wootickets_init' ) ){
-			$tickets = TribeWooTickets::get_instance()->get_tickets_ids( $event );
+			if ( class_exists( 'Tribe__Events__Tickets__Woo__Woo_Tickets', true ) ){
+				$instance = Tribe__Events__Tickets__Woo__Woo_Tickets::get_instance();
+			} else {
+				$instance = TribeWooTickets::get_instance();
+			}
+			$tickets = $instance->get_tickets_ids( $event );
 			if ( ! empty( $tickets ) ){
 				$min = PHP_INT_MAX;
 				$max = -1;
 
 				foreach ( $tickets as $ticket ) {
-					$ticket = TribeWooTickets::get_instance()->get_ticket( $event, $ticket );
+					$ticket = $instance->get_ticket( $event, $ticket );
 					$min = min( array( $min, $ticket->price ) );
 					$max = max( array( $max, $ticket->price ) );
 				}
@@ -79,5 +84,5 @@ class TEC_Forum_945349 {
 	}
 
 }
-TEC_Forum_945349::instance();
+add_action( 'init', array( 'TEC_Forum_945349', 'instance' ) );
 
