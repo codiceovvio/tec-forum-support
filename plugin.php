@@ -1,7 +1,7 @@
 <?php
 /**
- * Plugin Name:       The Events Calendar: Snippet Reverse Order
- * Plugin URI:        https://github.com/bordoni/tec-forum-support/tree/plugin-reverse-order
+ * Plugin Name:       The Events Calendar: Snippet 945676
+ * Plugin URI:        https://github.com/bordoni/tec-forum-support/tree/plugin-945676
  * Description:       The Events Calendar Support Addon
  * Version:           0.1.0
  * Author:            Gustavo Bordoni
@@ -15,7 +15,7 @@ if ( ! defined( 'WPINC' ) ){
 	die;
 }
 
-class TEC_Forum_ReverseOrder {
+class TEC_Forum_945676 {
 
 	public static $ID = 'ReverseOrder';
 
@@ -40,4 +40,4 @@ class TEC_Forum_ReverseOrder {
 		return $posts;
 	}
 }
-add_action( 'init', array( 'TEC_Forum_ReverseOrder', 'instance' ) );
+add_action( 'init', array( 'TEC_Forum_945676', 'instance' ) );
