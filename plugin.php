@@ -52,5 +52,5 @@ class TEC_Forum_939516 {
 	}
 
 }
-TEC_Forum_939516::instance();
+add_action( 'init', array( 'TEC_Forum_939516', 'instance' ) );
 
