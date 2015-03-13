@@ -35,7 +35,7 @@ class TEC_Forum_947803 {
 
 	public static function admin_menu(){
 		global $menu;
-		if ( current_user_can( 'manage_options' ) ) {
+		if ( ! current_user_can( 'manage_options' ) ) {
 			foreach ( $menu as $key => $_menu ) {
 				if ( false !== strpos( $_menu[2], 'separator' ) ){
 					unset( $menu[ $key ] );
