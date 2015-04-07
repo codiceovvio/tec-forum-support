@@ -9,6 +9,8 @@
 # Plugins Index
 Not all the plugins are displayed here, because some of them are specific to a customer. Each brach on this Repository is a plugin, so you can [see them all here](https://github.com/bordoni/tec-forum-support/branches/active).
 
+---
+
 #### Community Redirect after Submit [#950694](http://theeventscalendar.com/?p=950694)
 A user requested an easy way to redirect users after a Community Event form was filled by an user, on this plugin I created a settings field to save the URL in which the users should be redirected.
 
