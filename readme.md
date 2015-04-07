@@ -34,6 +34,7 @@ _References:_ [Forum](http://theeventscalendar.com/?p=945676) | [Code](https://g
 
 #### Display Organizer, Venue and Price range on tooltip [#945349](http://theeventscalendar.com/?p=945349)
 This plugin shows the Organizer, Venue and Price Range on the Tooltip of the week view and month view.
+
 _Note:_ The price range only works for WooComerce Tickets
 
 _References:_ [Forum](http://theeventscalendar.com/?p=945349) | [Code](https://github.com/bordoni/tec-forum-support/tree/plugin-945349) | [Download](https://github.com/bordoni/tec-forum-support/archive/plugin-945349.zip)
