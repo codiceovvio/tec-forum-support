@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       The Events Calendar: Snippet 951413
  * Plugin URI:        https://github.com/bordoni/tec-forum-support/tree/plugin-951413
- * Description:       The Events Calendar Support Addon
+ * Description:       The Events Calendar Support Addon: Hides the "Use Saved Organizer" drop-down box
  * Version:           0.1.0
  * Author:            Matthew Batchelder
  * Author URI:        http://tri.be
