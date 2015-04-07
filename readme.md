@@ -45,3 +45,10 @@ _References:_ [Forum](http://theeventscalendar.com/?p=945349) | [Code](https://g
 Display the Venue link on the Tooltip for the monthview
 
 _References:_ [Forum](http://theeventscalendar.com/?p=939516) | [Code](https://github.com/bordoni/tec-forum-support/tree/plugin-939516) | [Download](https://github.com/bordoni/tec-forum-support/archive/plugin-939516.zip)
+
+---
+
+#### Hide the "Used Saved Organizer" drop-down [#951413](http://theeventscalendar.com/?p=951413)
+A user requested a way to suppress the saved organizer drop-down when community organizers create an event.
+
+_References:_ [Forum](http://theeventscalendar.com/?p=951413) | [Code](https://github.com/bordoni/tec-forum-support/tree/plugin-951413) | [Download](https://github.com/bordoni/tec-forum-support/archive/plugin-951413.zip)
