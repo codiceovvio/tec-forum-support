@@ -12,7 +12,7 @@ _References:_ [Forum](http://theeventscalendar.com/?p=950694) | [Code](https://g
 
 ---
 
-#### Search Field as a Select [949602](http://theeventscalendar.com/?p=949602)
+#### Search Field as a Select [#949602](http://theeventscalendar.com/?p=949602)
 Replaces the search field on the Events Archive page from a Text field to an Select box. The administrator can fill which are the options as a Setting on their plugin.
 
 _References:_ [Forum](http://theeventscalendar.com/?p=949602) | [Code](https://github.com/bordoni/tec-forum-support/tree/plugin-949602) | [Download](https://github.com/bordoni/tec-forum-support/archive/plugin-949602.zip)
