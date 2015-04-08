@@ -34,4 +34,4 @@ class TEC_Forum_951413 {
 		return self::$_instance;
 	}
 }
-add_action( 'init', array( 'TEC_Forum_951413', 'instance' ) );
+add_action( 'tribe_organizer_table_top', array( 'TEC_Forum_951413', 'instance' ), 1 );
