@@ -49,7 +49,7 @@ _References:_ [Forum](http://theeventscalendar.com/?p=951413) | [Code](https://g
 
 ---
 
-#### Community Form with Tags [#951413](http://theeventscalendar.com/?p=954138)
+#### Community Form with Tags [#954138](http://theeventscalendar.com/?p=954138)
 Adds a way to include tags on the Community Form.
 
 _References:_ [Forum](http://theeventscalendar.com/?p=954138) | [Code](https://github.com/bordoni/tec-forum-support/tree/plugin-954138) | [Download](https://github.com/bordoni/tec-forum-support/archive/plugin-954138.zip)
