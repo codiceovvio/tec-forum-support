@@ -1,7 +1,7 @@
 <?php
 /**
- * Plugin Name:       The Events Calendar: Snippet 939516
- * Plugin URI:        https://github.com/bordoni/tec-forum-support/tree/plugin-939516
+ * Plugin Name:       TEC Snippet: Community Form with Tags
+ * Plugin URI:        https://github.com/bordoni/tec-forum-support/tree/plugin-954138
  * Description:       The Events Calendar Support Addon
  * Version:           0.1.0
  * Author:            Gustavo Bordoni
@@ -15,15 +15,15 @@ if ( ! defined( 'WPINC' ) ){
 	die;
 }
 
-class TEC_Forum_939516 {
+class TEC_Forum_954138 {
 
-	public static $ID = 939516;
+	public static $ID = 954138;
 
 	public static $_instance = null;
 
 	public function __construct(){
-		add_filter( 'tribe_events_template_data_array', array( __CLASS__, 'template_data_array' ), 10, 3 );
-		add_filter( 'tribe_events_template_paths', array( __CLASS__, 'template_paths' ) );
+		add_filter( 'tribe_events_community_after_the_content', array( __CLASS__, 'community_after_the_content' ) );
+		add_filter( 'tribe_events_community_allowed_event_fields', array( __CLASS__, 'allowed_event_fields' ), 15 );
 	}
 
 	public static function instance(){
@@ -34,23 +34,47 @@ class TEC_Forum_939516 {
 		return self::$_instance;
 	}
 
-	public static function template_data_array( $json, $event, $additional ){
-		$json['venue'] = '';
-
-		$venue = tribe_get_venue_id( $event );
-		if ( $venue ){
-			$json['venue'] = $venue;
-			$json['venue_link'] = tribe_get_venue_link( $venue, false );
-			$json['venue_title'] = tribe_get_venue( $venue );
-		}
-
-		return $json;
+	public static function allowed_event_fields( $allowed_fields ){
+		$allowed_fields[] = 'tags_input';
+		return $allowed_fields;
 	}
 
-	public static function template_paths( $bases ){
-		return array( 'forum-' . self::$ID => plugin_dir_path( __FILE__ ) ) + $bases;
+	public static function community_after_the_content(){
+		$tagi = '';
+
+		if ( isset( $_POST['tags_input'] ) ) {
+			$tagi = esc_attr( strip_tags( $_POST['tags_input'] ) );
+		} else {
+			$a = array();
+			$posttags = get_the_tags();
+			if ( $posttags ) {
+				foreach ( $posttags as $tag ) {
+					$a[]  = $tag->name;
+				}
+			}
+			$tagi = implode( ',', $a );
+		}
+
+		?>
+		<div class="events-community-post-content bubble" id="event_tags">
+			<table class="tribe-community-event-info" cellspacing="0" cellpadding="0" border="0">
+				<tbody>
+					<tr>
+						<td colspan="2" class="tribe_sectionheader">
+							<h4 class="event-time">Event Tags:</h4>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<textarea name="tags_input" placeholder="E.g.: Use commas to separate each one of the tags"><?php echo esc_attr( $tagi ); ?></textarea>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<?php
 	}
 
 }
-add_action( 'init', array( 'TEC_Forum_939516', 'instance' ) );
+add_action( 'init', array( 'TEC_Forum_954138', 'instance' ) );
 
