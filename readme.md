@@ -46,3 +46,10 @@ _References:_ [Forum](http://theeventscalendar.com/?p=939516) | [Code](https://g
 A user requested a way to suppress the saved organizer drop-down when community organizers create an event.
 
 _References:_ [Forum](http://theeventscalendar.com/?p=951413) | [Code](https://github.com/bordoni/tec-forum-support/tree/plugin-951413) | [Download](https://github.com/bordoni/tec-forum-support/archive/plugin-951413.zip)
+
+---
+
+#### Community Form with Tags [#951413](http://theeventscalendar.com/?p=954138)
+Adds a way to include tags on the Community Form.
+
+_References:_ [Forum](http://theeventscalendar.com/?p=954138) | [Code](https://github.com/bordoni/tec-forum-support/tree/plugin-954138) | [Download](https://github.com/bordoni/tec-forum-support/archive/plugin-954138.zip)
