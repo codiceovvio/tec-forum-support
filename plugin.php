@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:       TEC Addon: Display Event details on RSS feed content
+ * Plugin Name:       TEC Addon: Organizer Email with 'mailto:'
  * Plugin URI:        https://github.com/bordoni/tec-forum-support/tree/plugin-952243
  * Description:       The Events Calendar Support Addon
  * Version:           0.1.0
@@ -16,14 +16,14 @@ if ( ! defined( 'WPINC' ) ){
 }
 // add_filter( "", "plugin_function_name" )
 
-class TEC_Forum_952243 {
+class TEC_Forum_957175 {
 
-	public static $ID = 952243;
+	public static $ID = 957175;
 
 	public static $_instance = null;
 
 	public function __construct(){
-		add_action( 'the_content_feed', array( __CLASS__, 'content_feed' ) );
+		add_action( 'tribe_get_organizer_email', array( __CLASS__, 'get_organizer_email' ) );
 	}
 
 	public static function instance(){
@@ -34,21 +34,13 @@ class TEC_Forum_952243 {
 		return self::$_instance;
 	}
 
-	public static function content_feed( $content ){
-		if ( ! tribe_is_event( get_the_ID() ) ){
-			return $content;
+	public static function get_organizer_email( $email ){
+		if ( ! is_email( $email ) || ! tribe_is_event( $GLOBALS['wp_query']->post->ID ) ) {
+			return $email;
 		}
 
-		$content .= '<hr>';
-		$content .= '<ul>';
-		$content .= '<li><b>' . esc_attr__( 'Organizer', 'tribe-events-calendar' ) . ':</b> ' . tribe_get_organizer() . '</li>';
-		$content .= '<li><b>' . esc_attr__( 'Venue', 'tribe-events-calendar' ) . ':</b> ' . tribe_get_venue() . '</li>';
-		$content .= '<li><b>' . esc_attr__( 'Address', 'tribe-events-calendar' ) . ':</b> ' . tribe_get_full_address() . '</li>';
-		$content .= '<li><b>' . esc_attr__( 'Google Map', 'tribe-events-calendar' ) . ':</b> ' . tribe_show_google_map_link() . '</li>';
-		$content .= '</ul>';
-
-		return $content;
+		return '<a href="mailto:' . esc_attr( $email ) . '">' . esc_html( $email ) . '</a>';
 	}
 
 }
-add_action( 'init', array( 'TEC_Forum_952243', 'instance' ) );
+add_action( 'init', array( 'TEC_Forum_957175', 'instance' ) );
