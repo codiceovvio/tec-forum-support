@@ -41,10 +41,10 @@ class TEC_Forum_952243 {
 
 		$content .= '<hr>';
 		$content .= '<ul>';
-		$content .= '<li><b>' . esc_attr_e( 'Organizer', 'tribe-events-calendar' ) . ':</b> ' . tribe_get_organizer() . '</li>';
-		$content .= '<li><b>' . esc_attr_e( 'Venue', 'tribe-events-calendar' ) . ':</b> ' . tribe_get_venue() . '</li>';
-		$content .= '<li><b>' . esc_attr_e( 'Address', 'tribe-events-calendar' ) . ':</b> ' . tribe_get_full_address() . '</li>';
-		$content .= '<li><b>' . esc_attr_e( 'Google Map', 'tribe-events-calendar' ) . ':</b> ' . tribe_show_google_map_link() . '</li>';
+		$content .= '<li><b>' . esc_attr__( 'Organizer', 'tribe-events-calendar' ) . ':</b> ' . tribe_get_organizer() . '</li>';
+		$content .= '<li><b>' . esc_attr__( 'Venue', 'tribe-events-calendar' ) . ':</b> ' . tribe_get_venue() . '</li>';
+		$content .= '<li><b>' . esc_attr__( 'Address', 'tribe-events-calendar' ) . ':</b> ' . tribe_get_full_address() . '</li>';
+		$content .= '<li><b>' . esc_attr__( 'Google Map', 'tribe-events-calendar' ) . ':</b> ' . tribe_show_google_map_link() . '</li>';
 		$content .= '</ul>';
 
 		return $content;
