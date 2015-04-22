@@ -1,7 +1,14 @@
 # Plugins Index
-Not all the plugins are displayed here, because some of them are specific to a customer. 
+Not all the plugins are displayed here, because some of them are specific to a customer.
 
 Each branch on this Repository is a plugin, so you can [see them all here](https://github.com/bordoni/tec-forum-support/branches/active).
+
+---
+
+#### Display Event details on WooCommerce [#955520](http://theeventscalendar.com/?p=955520)
+When active will show information about the Event in which the ticket belongs on the Cart Item and on the Order Admin Item.
+
+_References:_ [Forum](http://theeventscalendar.com/?p=955520) | [Code](https://github.com/bordoni/tec-forum-support/tree/plugin-955520) | [Download](https://github.com/bordoni/tec-forum-support/archive/plugin-955520.zip)
 
 ---
 
@@ -20,7 +27,7 @@ _References:_ [Forum](http://theeventscalendar.com/?p=949602) | [Code](https://g
 ---
 
 #### Reverse Display order of Events [#945676](http://theeventscalendar.com/?p=945676)
-The plugin reveres the order in which the events are displayed so that the newer events show up in the beginning of the archive page. 
+The plugin reveres the order in which the events are displayed so that the newer events show up in the beginning of the archive page.
 
 _References:_ [Forum](http://theeventscalendar.com/?p=945676) | [Code](https://github.com/bordoni/tec-forum-support/tree/plugin-945676) | [Download](https://github.com/bordoni/tec-forum-support/archive/plugin-945676.zip)
 
