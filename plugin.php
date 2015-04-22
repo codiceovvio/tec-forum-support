@@ -23,7 +23,7 @@ class TEC_Forum_955520 {
 
 	public function __construct(){
 		add_filter( 'woocommerce_cart_item_name', array( __CLASS__, 'cart_item_name' ), 10, 3 );
-		// add_action( 'woocommerce_admin_order_item_values', array( __CLASS__, 'admin_order_item_values' ), 10, 3 );
+		add_action( 'woocommerce_admin_order_item_values', array( __CLASS__, 'admin_order_item_values' ), 10, 3 );
 		add_action( 'woocommerce_admin_order_item_headers', array( __CLASS__, 'admin_order_item_headers' ) );
 	}
 
