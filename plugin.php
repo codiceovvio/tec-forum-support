@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name:       TEC Addon: Organizer Email with 'mailto:'
- * Plugin URI:        https://github.com/bordoni/tec-forum-support/tree/plugin-952243
+ * Plugin URI:        https://github.com/bordoni/tec-forum-support/tree/plugin-957175
  * Description:       The Events Calendar Support Addon
  * Version:           0.1.0
  * Author:            Gustavo Bordoni
