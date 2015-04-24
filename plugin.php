@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:       TEC Addon: Change Category label to Internships
+ * Plugin Name:       TEC Addon: Change Category labels
  * Plugin URI:        https://github.com/bordoni/tec-forum-support/tree/plugin-957928
  * Description:       The Events Calendar Support Addon
  * Version:           0.1.0
