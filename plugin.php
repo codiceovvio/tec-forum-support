@@ -21,12 +21,23 @@ class TEC_Forum_957928 {
 
 	public static $_instance = null;
 
-	public static $singular = 'Internship';
-	public static $plural = 'Internships';
+	public static $singular = 'Category';
+	public static $plural = 'Categories';
 
 	public function __construct(){
+		if ( class_exists( 'Tribe__Events__Main' ) ){
+			$this->instances['tec'] = Tribe__Events__Main::instance();
+		} else {
+			$this->instances['tec'] = TribeEvents::instance();
+		}
+
 		add_action( 'tribe_get_event_categories', array( __CLASS__, 'get_event_categories' ), 15, 4 );
+		add_filter( 'tribe_display_settings_tab_fields', array( __CLASS__, 'options_field' ), 15, 1 );
+
 		add_action( 'gettext', array( __CLASS__, 'theme_text' ), 15, 3 );
+
+		self::$singular = $this->instances['tec']->getOption( self::$ID . '_categorySingular', self::$singular );
+		self::$plural = $this->instances['tec']->getOption( self::$ID . '_categoryPlural', self::$plural );
 	}
 
 	public static function instance(){
@@ -35,6 +46,29 @@ class TEC_Forum_957928 {
 		}
 
 		return self::$_instance;
+	}
+
+	public static function options_field( $fields = array() ){
+		// Creates the field configurations
+		$field = array(
+			self::$ID . '_categorySingular' => array(
+				'type'            => 'text',
+				'label'           => esc_attr__( 'Category Singular', 'tribe-events-calendar' ),
+				'tooltip'         => esc_attr__( 'All instances of Category in Singular will be replaced by this field\'s content', 'tribe-events-calendar' ),
+				'validation_type' => 'html',
+			),
+			self::$ID . '_categoryPlural' => array(
+				'type'            => 'text',
+				'label'           => esc_attr__( 'Category Plural', 'tribe-events-calendar' ),
+				'tooltip'         => esc_attr__( 'All instances of Category in Plural will be replaced by this field\'s content', 'tribe-events-calendar' ),
+				'validation_type' => 'html',
+			)
+		);
+		// Places this field in the right spot
+		$key = array_search( 'tribeDisableTribeBar', array_keys( $fields ) );
+		$total = count( $fields );
+		$fields = array_slice( $fields, 0, $key, true ) + $field + array_slice( $fields, 3, $total - 1, true );
+		return $fields;
 	}
 
 	public static function get_event_categories( $html, $post_id, $args, $categories ){
