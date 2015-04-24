@@ -5,6 +5,13 @@ Each branch on this Repository is a plugin, so you can [see them all here](https
 
 ---
 
+#### Change Category labels [#957928](http://theeventscalendar.com/?p=957928)
+Allow the administrator to change the caregory Label on all the Plugin
+
+_References:_ [Forum](http://theeventscalendar.com/?p=957928) | [Code](https://github.com/bordoni/tec-forum-support/tree/plugin-957928) | [Download](https://github.com/bordoni/tec-forum-support/archive/plugin-957928.zip)
+
+---
+
 #### Display Event details on WooCommerce [#955520](http://theeventscalendar.com/?p=955520)
 When active will show information about the Event in which the ticket belongs on the Cart Item and on the Order Admin Item.
 
