@@ -80,7 +80,7 @@ class TEC_Forum_957928 {
 		}
 
 		// check for the occurances of links in the returned string
-		$label = is_null( $args['label'] ) ? esc_attr_n( self::$singular, self::$plural, count( $categories ), 'tribe-events-calendar' ) : $args['label'];
+		$label = is_null( $args['label'] ) ? _n( esc_attr( self::$singular ), esc_attr( self::$singular ), count( $categories ), 'tribe-events-calendar' ) : $args['label'];
 
 		$html = ! empty( $categories ) ? sprintf(
 			'%s%s:%s %s%s%s',
