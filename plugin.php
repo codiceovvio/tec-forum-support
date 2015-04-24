@@ -3,7 +3,7 @@
  * Plugin Name:       TEC Addon: Change Category labels
  * Plugin URI:        https://github.com/bordoni/tec-forum-support/tree/plugin-957928
  * Description:       The Events Calendar Support Addon
- * Version:           0.1.0
+ * Version:           0.1.1
  * Author:            Gustavo Bordoni
  * Author URI:        http://bordoni.me
  * License:           GPL-2.0+
