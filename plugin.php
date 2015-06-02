@@ -3,7 +3,7 @@
  * Plugin Name:       TEC Addon: Organizer Email with 'mailto:'
  * Plugin URI:        https://github.com/bordoni/tec-forum-support/tree/plugin-957175
  * Description:       The Events Calendar Support Addon
- * Version:           0.1.0
+ * Version:           0.1.1
  * Author:            Gustavo Bordoni
  * Author URI:        http://bordoni.me
  * License:           GPL-2.0+
@@ -14,7 +14,6 @@
 if ( ! defined( 'WPINC' ) ){
 	die;
 }
-// add_filter( "", "plugin_function_name" )
 
 class TEC_Forum_957175 {
 
@@ -27,7 +26,7 @@ class TEC_Forum_957175 {
 	}
 
 	public static function instance(){
-		if ( ! is_a( self::$_instance, __CLASS__ ) ) {
+		if ( ! ( self::$_instance instanceof self ) ) {
 			self::$_instance = new self();
 		}
 
