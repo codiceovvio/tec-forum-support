@@ -3,7 +3,7 @@
  * Plugin Name:       The Events Calendar: Snippet 945349
  * Plugin URI:        https://gist.github.com/bordoni/420661affe489e08fd5e
  * Description:       Wendy requested a snippet to use new data on Month and Week tooltips
- * Version:           0.1.0
+ * Version:           0.1.1
  * Author:            Gustavo Bordoni
  * Author URI:        http://bordoni.me
  * License:           GPL-2.0+
@@ -27,7 +27,7 @@ class TEC_Forum_945349 {
 	}
 
 	public static function instance(){
-		if ( ! is_a( self::$_instance, __CLASS__ ) ) {
+		if ( ! ( self::$_instance instanceof self ) ) {
 			self::$_instance = new self();
 		}
 
