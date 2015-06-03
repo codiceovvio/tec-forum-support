@@ -75,8 +75,10 @@ class TEC_Forum_957928 {
 		$terms = get_the_terms( $post_id, 'tribe_events_cat' );
 		$categories = array();
 
-		foreach ( $terms as $term ) {
-			$categories[] = $term->name;
+		if ( ! empty( $terms ) ){
+			foreach ( $terms as $term ) {
+				$categories[] = $term->name;
+			}
 		}
 
 		// check for the occurances of links in the returned string
