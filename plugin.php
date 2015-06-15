@@ -34,6 +34,14 @@ class TEC_Forum_968003 {
 	}
 
 	public static function http_request_args( $request, $url ) {
+		if ( ! class_exists( 'Tribe__Events__Tickets__Eventbrite__Main' ) ){
+			return $request;
+		}
+
+		if ( version_compare( Tribe__Events__Tickets__Eventbrite__Main::$pluginVersion, '3.11', '>=' ) ){
+			return $request;
+		}
+
 		$baseurl = apply_filters( 'tribe-eventbrite-base_api_url', 'https://www.eventbriteapi.com/v3/' );
 		if ( false === strpos( $url, $baseurl ) ){
 			return $request;
@@ -44,7 +52,8 @@ class TEC_Forum_968003 {
 			false !== strpos( $url, '/unpublish/?token=' ) ||
 			false !== strpos( $url, '/unpublish?token=' ) ||
 			false !== strpos( $url, '/publish/?token=' ) ||
-			false !== strpos( $url, '/publish?token=' ) ){
+			false !== strpos( $url, '/publish?token=' )
+		){
 			return $request;
 		}
 
