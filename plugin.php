@@ -1,9 +1,9 @@
 <?php
 /**
- * Plugin Name:       TEC Addon: Change Category labels
- * Plugin URI:        https://github.com/bordoni/tec-forum-support/tree/plugin-957928
+ * Plugin Name:       TEC Addon: Eventbrite Timezone
+ * Plugin URI:        https://github.com/bordoni/tec-forum-support/tree/plugin-968003
  * Description:       The Events Calendar Support Addon
- * Version:           0.1.2
+ * Version:           0.1.0
  * Author:            Gustavo Bordoni
  * Author URI:        http://bordoni.me
  * License:           GPL-2.0+
@@ -15,29 +15,14 @@ if ( ! defined( 'WPINC' ) ){
 	die;
 }
 
-class TEC_Forum_957928 {
+class TEC_Forum_968003 {
 
-	public static $ID = 957928;
+	public static $ID = 968003;
 
 	public static $_instance = null;
 
-	public static $singular = 'Category';
-	public static $plural = 'Categories';
-
 	public function __construct(){
-		if ( class_exists( 'Tribe__Events__Main' ) ){
-			$this->instances['tec'] = Tribe__Events__Main::instance();
-		} else {
-			$this->instances['tec'] = TribeEvents::instance();
-		}
-
-		add_action( 'tribe_get_event_categories', array( __CLASS__, 'get_event_categories' ), 15, 4 );
-		add_filter( 'tribe_display_settings_tab_fields', array( __CLASS__, 'options_field' ), 15, 1 );
-
-		add_action( 'gettext', array( __CLASS__, 'theme_text' ), 15, 3 );
-
-		self::$singular = $this->instances['tec']->getOption( self::$ID . '_categorySingular', self::$singular );
-		self::$plural = $this->instances['tec']->getOption( self::$ID . '_categoryPlural', self::$plural );
+		add_filter( 'http_request_args', array( __CLASS__, 'http_request_args' ), 15, 2 );
 	}
 
 	public static function instance(){
@@ -48,78 +33,76 @@ class TEC_Forum_957928 {
 		return self::$_instance;
 	}
 
-	public static function options_field( $fields = array() ){
-		// Creates the field configurations
-		$field = array(
-			self::$ID . '_categorySingular' => array(
-				'type'            => 'text',
-				'label'           => esc_attr__( 'Category Singular', 'tribe-events-calendar' ),
-				'tooltip'         => esc_attr__( 'All instances of Category in Singular will be replaced by this field\'s content', 'tribe-events-calendar' ),
-				'validation_type' => 'html',
-			),
-			self::$ID . '_categoryPlural' => array(
-				'type'            => 'text',
-				'label'           => esc_attr__( 'Category Plural', 'tribe-events-calendar' ),
-				'tooltip'         => esc_attr__( 'All instances of Category in Plural will be replaced by this field\'s content', 'tribe-events-calendar' ),
-				'validation_type' => 'html',
-			)
-		);
-		// Places this field in the right spot
-		$key = array_search( 'tribeDisableTribeBar', array_keys( $fields ) );
-		$total = count( $fields );
-		$fields = array_slice( $fields, 0, $key, true ) + $field + array_slice( $fields, 3, $total - 1, true );
-		return $fields;
+	public static function http_request_args( $request, $url ) {
+		$baseurl = apply_filters( 'tribe-eventbrite-base_api_url', 'https://www.eventbriteapi.com/v3/' );
+		if ( false === strpos( $url, $baseurl ) ){
+			return $request;
+		}
+
+		if (
+			false === strpos( $url, $baseurl . 'events' ) ||
+			false !== strpos( $url, '/unpublish/?token=' ) ||
+			false !== strpos( $url, '/unpublish?token=' ) ||
+			false !== strpos( $url, '/publish/?token=' ) ||
+			false !== strpos( $url, '/publish?token=' ) ){
+			return $request;
+		}
+
+		if ( ! is_array( $request['body'] ) || ! isset( $request['body']['event.start.utc'], $request['body']['event.start.timezone'], $request['body']['event.end.utc'], $request['body']['event.end.timezone'] ) ){
+			return $request;
+		}
+
+		// Remove the Z param
+		$request['body']['event.start.utc'] = str_replace( 'Z', '', $request['body']['event.start.utc'] );
+		$request['body']['event.end.utc'] = str_replace( 'Z', '', $request['body']['event.end.utc'] );
+
+		// Add the timezone and the Z Param
+		$request['body']['event.start.utc'] = date( Tribe__Events__Tickets__Eventbrite__API::$date_format, self::wp_strtotime( $request['body']['event.start.utc'] ) );
+		$request['body']['event.end.utc'] = date( Tribe__Events__Tickets__Eventbrite__API::$date_format, self::wp_strtotime( $request['body']['event.end.utc'] ) );
+
+		return $request;
 	}
 
-	public static function get_event_categories( $html, $post_id, $args, $categories ){
-		$terms = get_the_terms( $post_id, 'tribe_events_cat' );
-		$categories = array();
-
-		if ( ! empty( $terms ) ){
-			foreach ( $terms as $term ) {
-				$categories[] = $term->name;
+	/**
+	 * Converts a locally-formatted date to a unix timestamp. This is a drop-in
+	 * replacement for `strtotime()`, except that where strtotime assumes GMT, this
+	 * assumes local time (as described below). If a timezone is specified, this
+	 * function defers to strtotime().
+	 *
+	 * If there is a timezone_string available, the date is assumed to be in that
+	 * timezone, otherwise it simply subtracts the value of the 'gmt_offset'
+	 * option.
+	 *
+	 * @see strtotime()
+	 * @uses get_option() to retrieve the value of 'gmt_offset'.
+	 * @param string $string A date/time string. See `strtotime` for valid formats.
+	 * @return int UNIX timestamp.
+	 */
+	private static function wp_strtotime( $string ) {
+		// If there's a timezone specified, we shouldn't convert it
+		try {
+			$test_date = new DateTime( $string );
+			if ( 'UTC' != $test_date->getTimezone()->getName() ) {
+				return strtotime( $string );
 			}
+		} catch ( Exception $e ) {
+			return strtotime( $string );
 		}
 
-		// check for the occurances of links in the returned string
-		$label = is_null( $args['label'] ) ? _n( esc_attr( self::$singular ), esc_attr( self::$singular ), count( $categories ), 'tribe-events-calendar' ) : $args['label'];
-
-		$html = ! empty( $categories ) ? sprintf(
-			'%s%s:%s %s%s%s',
-			$args['label_before'],
-			$label,
-			$args['label_after'],
-			$args['wrap_before'],
-			implode( ', ', $categories ),
-			$args['wrap_after']
-		) : '';
-
-		return $html;
+		$tz = get_option( 'timezone_string' );
+		if ( ! empty( $tz ) ) {
+			$date = date_create( $string, new DateTimeZone( $tz ) );
+			if ( ! $date ) {
+				return strtotime( $string );
+			}
+			$date->setTimezone( new DateTimeZone( 'UTC' ) );
+			return $date->format( 'U' );
+		} else {
+			$offset = (float) get_option( 'gmt_offset' );
+			$seconds = intval( $offset * HOUR_IN_SECONDS );
+			$timestamp = strtotime( $string ) - $seconds;
+			return $timestamp;
+		}
 	}
-
-	public static function theme_text( $text, $otext, $domain ) {
-		if ( 0 !== strpos( $domain, 'tribe' ) ) {
-			return $text;
-		}
-
-		$custom = array(
-			'%s Categories' => '%s ' . self::$plural,
-			'%s Category' => '%s ' . self::$singular,
-			'Search %s Categories' => 'Search %s ' . self::$plural,
-			'All %s Categories' => 'All %s ' . self::$plural,
-			'Parent %s Category' => 'Parent %s ' . self::$singular,
-			'Parent %s Category:' => 'Parent %s ' . self::$singular . ':',
-			'Edit %s Category' => 'Edit %s ' . self::$singular,
-			'Update %s Category' => 'Edit %s ' . self::$singular,
-			'Add New %s Category' => 'Add New %s ' . self::$singular,
-		);
-
-		if ( ! isset( $custom[ $otext ] ) ) {
-			return $text;
-		}
-
-		return $custom[ $otext ];
-	}
-
 }
-add_action( 'plugins_loaded', array( 'TEC_Forum_957928', 'instance' ), 15 );
+add_action( 'plugins_loaded', array( 'TEC_Forum_968003', 'instance' ), 15 );
