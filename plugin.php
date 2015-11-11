@@ -24,8 +24,8 @@ class TEC_Forum_950694 {
 	public $instances = array();
 
 	public function __construct(){
-		if ( class_exists( 'Tribe__Events__Events' ) ){
-			$this->instances['tec'] = Tribe__Events__Events::instance();
+		if ( class_exists( 'Tribe__Events__Main' ) ){
+			$this->instances['tec'] = Tribe__Events__Main::instance();
 		} else {
 			$this->instances['tec'] = TribeEvents::instance();
 		}
