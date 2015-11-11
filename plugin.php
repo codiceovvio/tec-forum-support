@@ -3,7 +3,7 @@
  * Plugin Name:       The Events Calendar: Snippet 950694
  * Plugin URI:        https://github.com/bordoni/tec-forum-support/tree/plugin-950694
  * Description:       The Events Calendar Support Addon
- * Version:           0.1.2
+ * Version:           0.1.3
  * Author:            Gustavo Bordoni
  * Author URI:        http://bordoni.me
  * License:           GPL-2.0+
