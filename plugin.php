@@ -38,11 +38,12 @@ class TEC_Ticket_40224 {
 				continue;
 			}
 
-			if ( 'Completed' === $item[1] ){
-				$item[7] = 'Checking Done!';
+			if ( strpos( $item[3], '@gmail.com' ) !== false ){
+				$items[ $key ][7] = 'Checking with GMail!';
 			}
 		}
 
+		return $items;
 	}
 }
 add_action( 'plugins_loaded', array( 'TEC_Ticket_40224', 'instance' ), 15 );
