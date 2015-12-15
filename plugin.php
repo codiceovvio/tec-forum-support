@@ -1,9 +1,9 @@
 <?php
 /**
- * Plugin Name:       TEC Addon: Divi Archive Posts Per Page Fix
+ * Plugin Name:       TEC Addon: Divi Theme Pagination Fix
  * Plugin URI:        https://github.com/bordoni/tec-forum-support/tree/plugin-ticket-39520
  * Description:       The Events Calendar Snippet Plugin
- * Version:           0.1.0
+ * Version:           0.1.1
  * Author:            Gustavo Bordoni
  * Author URI:        http://bordoni.me
  * License:           GPL-2.0+
