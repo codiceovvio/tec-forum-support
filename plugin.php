@@ -3,7 +3,7 @@
  * Plugin Name:       The Events Calendar: Snippet 950694
  * Plugin URI:        https://github.com/bordoni/tec-forum-support/tree/plugin-950694
  * Description:       The Events Calendar Support Addon
- * Version:           0.1.3
+ * Version:           0.1.4
  * Author:            Gustavo Bordoni
  * Author URI:        http://bordoni.me
  * License:           GPL-2.0+
@@ -23,7 +23,7 @@ class TEC_Forum_950694 {
 
 	public $instances = array();
 
-	public function __construct(){
+	public function __construct() {
 		if ( class_exists( 'Tribe__Events__Main' ) ){
 			$this->instances['tec'] = Tribe__Events__Main::instance();
 		} else {
@@ -34,7 +34,7 @@ class TEC_Forum_950694 {
 		add_filter( 'tribe_community_events_form_errors', array( $this, 'community_events_form_errors' ), 10, 1 );
 	}
 
-	public static function instance(){
+	public static function instance() {
 		if ( ! ( self::$_instance instanceof self ) ) {
 			self::$_instance = new self();
 		}
@@ -46,14 +46,21 @@ class TEC_Forum_950694 {
 		if ( is_array( $messages ) && ! empty( $messages ) ) {
 			$first_message = reset( $messages );
 			if ( 'update' == $first_message['type'] ) {
-				add_action( 'parse_request', array( $this, 'redirect_after_community_submission' ) , 15, 1 );
+				add_action( 'parse_request', array( $this, 'redirect_after_community_submission' ), 15, 1 );
 			}
 		}
 		return $messages;
 	}
 
 	public function redirect_after_community_submission( $wp ) {
-		if ( isset( $wp->query_vars[ WP_Router::QUERY_VAR ] ) && 'ce-add-route' == $wp->query_vars[ WP_Router::QUERY_VAR ] && ! empty( $_POST ) ) {
+		if (
+			isset( $wp->query_vars[ WP_Router::QUERY_VAR ] )
+			&& (
+				'ce-add-route' == $wp->query_vars[ WP_Router::QUERY_VAR ]
+				|| 'ce-edit-route' == $wp->query_vars[ WP_Router::QUERY_VAR ]
+			)
+			&& ! empty( $_POST )
+		) {
 			$redirect = $this->instances['tec']->getOption( self::$ID . '_redirect', null );
 			$home = home_url();
 			if ( empty( $redirect ) ){
@@ -67,7 +74,7 @@ class TEC_Forum_950694 {
 		}
 	}
 
-	public function options_field( $fields = array() ){
+	public function options_field( $fields = array() ) {
 		// Creates the field configurations
 		$field = array(
 			self::$ID . '_redirect' => array(
@@ -88,3 +95,4 @@ class TEC_Forum_950694 {
 
 }
 add_action( 'init', array( 'TEC_Forum_950694', 'instance' ) );
+
