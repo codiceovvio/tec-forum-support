@@ -46,7 +46,7 @@ class TEC_Ticket_44253 {
 	}
 
 	public function redefine_priority( $query ) {
-		if ( Tribe__Events__Templates::is_main_loop( $query ) && Tribe__Events__Templates::$wpHeadComplete ) {
+		if ( $query->is_main_query() && Tribe__Events__Templates::$wpHeadComplete ) {
 			remove_filter( 'the_content', array( 'Tribe__Events__Templates', 'load_ecp_into_page_template' ), 9 );
 			add_filter( 'the_content', array( 'Tribe__Events__Templates', 'load_ecp_into_page_template' ) );
 		}
