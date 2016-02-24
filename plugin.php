@@ -38,6 +38,7 @@ class TEC_Ticket_44253 {
 	}
 
 	public function maybe_redefine_include() {
+		// Vefify the same things TEC does to ensure safety
 		if ( tribe_get_option( 'tribeEventsTemplate', 'default' ) != '' ) {
 			if ( ! is_single() || ! post_password_required() ) {
 				add_action( 'loop_start', array( $this, 'redefine_priority' ), 15 );
@@ -46,7 +47,9 @@ class TEC_Ticket_44253 {
 	}
 
 	public function redefine_priority( $query ) {
+		// Check for the sames things TEC does
 		if ( $query->is_main_query() && Tribe__Events__Templates::$wpHeadComplete ) {
+			// Re-define the Priorities
 			remove_filter( 'the_content', array( 'Tribe__Events__Templates', 'load_ecp_into_page_template' ), 9 );
 			add_filter( 'the_content', array( 'Tribe__Events__Templates', 'load_ecp_into_page_template' ) );
 		}
