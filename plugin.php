@@ -22,8 +22,8 @@ class TEC_Ticket_44253 {
 	public static $_instance = null;
 
 	public function __construct() {
-		// Check if TEC is active
-		if ( ! class_exists( 'Tribe__Events__Main' ) ) {
+		// Check if TEC is active and if the version is 4.0.6
+		if ( ! class_exists( 'Tribe__Events__Main' ) || ! version_compare( Tribe__Events__Main::VERSION, '4.0.6', '=' ) ) {
 			return;
 		}
 
