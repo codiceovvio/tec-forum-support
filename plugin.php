@@ -1,11 +1,11 @@
 <?php
 /**
- * Plugin Name:       TEC Addon: Testing Filters CSV
- * Plugin URI:        https://github.com/bordoni/tec-forum-support/tree/plugin-ticket-40224
- * Description:       The Events Calendar QA Addon
+ * Plugin Name:       TEC Addon: Resolve 4.0.6 template conflicts
+ * Plugin URI:        https://github.com/bordoni/tec-forum-support/tree/plugin-ticket-44253
+ * Description:       The Events Calendar Addon
  * Version:           0.1.0
- * Author:            Gustavo Bordoni
- * Author URI:        http://bordoni.me
+ * Author:            Modern Tribe Inc.
+ * Author URI:        http://theeventscalendar.com
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  */
@@ -15,14 +15,19 @@ if ( ! defined( 'WPINC' ) ){
 	die;
 }
 
-class TEC_Ticket_40224 {
+class TEC_Ticket_44253 {
 
-	public static $ID = 40224;
+	public static $ID = 44253;
 
 	public static $_instance = null;
 
 	public function __construct() {
-		add_filter( 'tribe_events_tickets_attendees_csv_items', array( __CLASS__, 'filter_items' ), 15, 2 );
+		// Check if TEC is active
+		if ( ! class_exists( 'Tribe__Events__Main' ) ) {
+			return;
+		}
+
+		add_action( 'template_include', array( $this, 'maybe_redefine_include' ), 5 );
 	}
 
 	public static function instance() {
@@ -32,18 +37,19 @@ class TEC_Ticket_40224 {
 		return self::$_instance;
 	}
 
-	public static function filter_items( $items ) {
-		foreach ( $items as $key => $item ) {
-			if ( 0 === $key ) {
-				continue;
-			}
-
-			if ( strpos( $item[3], '@gmail.com' ) !== false ){
-				$items[ $key ][7] = 'Checking with GMail!';
+	public function maybe_redefine_include() {
+		if ( tribe_get_option( 'tribeEventsTemplate', 'default' ) != '' ) {
+			if ( ! is_single() || ! post_password_required() ) {
+				add_action( 'loop_start', array( $this, 'redefine_priority' ), 15 );
 			}
 		}
+	}
 
-		return $items;
+	public function redefine_priority( $query ) {
+		if ( Tribe__Events__Templates::is_main_loop( $query ) && Tribe__Events__Templates::$wpHeadComplete ) {
+			remove_filter( 'the_content', array( 'Tribe__Events__Templates', 'load_ecp_into_page_template' ), 9 );
+			add_filter( 'the_content', array( 'Tribe__Events__Templates', 'load_ecp_into_page_template' ) );
+		}
 	}
 }
-add_action( 'plugins_loaded', array( 'TEC_Ticket_40224', 'instance' ), 15 );
+add_action( 'plugins_loaded', array( 'TEC_Ticket_44253', 'instance' ), 15 );
